@@ -1,4 +1,6 @@
 # monstr
+[![Code Health](https://landscape.io/github/IgorPelevanyuk/monstr/master/landscape.svg?style=flat)](https://landscape.io/github/IgorPelevanyuk/monstr/master)
+
 
 Development
 ===========
