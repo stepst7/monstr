@@ -7,12 +7,15 @@ before_script:
   - cp -f .travis/default.cfg .
   - pip install python-coveralls
   - pip install pytest pytest-cov
+  - pip install -r requirements.txt
+  - pip install coveralls
   - psql -c 'create database travis_test;' -U postgres
 # command to install dependencies
 install: 
-  - pip install -r requirements.txt
-  - pip install coveralls
-#  # command to run tests
-script: py.test
-
+  - pip install -e .
+# command to run tests
+script: 
+  - coverage run --source=Monstr setup.py test
+after_success:
+  - coveralls
 
