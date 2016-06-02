@@ -1,7 +1,6 @@
 # monstr
-.. image:: https://landscape.io/github/IgorPelevanyuk/monstr/master/landscape.svg?style=flat
-   :target: https://landscape.io/github/IgorPelevanyuk/monstr/master
-   :alt: Code Health
+[![Code Health](https://landscape.io/github/IgorPelevanyuk/monstr/master/landscape.svg?style=flat)](https://landscape.io/github/IgorPelevanyuk/monstr/master)
+
 
 Development
 ===========
