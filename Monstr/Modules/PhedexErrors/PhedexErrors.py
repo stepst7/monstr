@@ -4,10 +4,8 @@ import Monstr.Core.Utils as Utils
 import Monstr.Core.DB as DB
 import Monstr.Core.BaseModule as BaseModule
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 import json
-import pytz
-from pprint import pprint as pp
 
 from Monstr.Core.DB import Table, Column, Integer, String, DateTime, Text, UniqueConstraint
 from sqlalchemy.sql import func
@@ -37,8 +35,8 @@ class PhedexErrors(BaseModule.BaseModule):
                }
 
     def __init__(self):
-            super(PhedexErrors, self).__init__()
-            self.db_handler = DB.DBHandler()
+        super(PhedexErrors, self).__init__()
+        self.db_handler = DB.DBHandler()
 
     def PrepareRetrieve(self):
         last_row = self.db_handler.get_session().query(func.max(self.tables['main'].c.time_done).label("max_time_done")).one()

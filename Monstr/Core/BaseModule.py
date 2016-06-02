@@ -1,4 +1,3 @@
-import logging
 from abc import ABCMeta, abstractmethod
 import Monstr.Core.DB as DB
 
@@ -32,9 +31,9 @@ class BaseModule():
         self.db_handler = DB.DBHandler()
 
     def checkClass(self):
-        if self.name == None:
+        if self.name is None:
             raise "Module require name"
-        if self.table_schemas == None:
+        if self.table_schemas is None:
             raise "Module require schemas list"
         self.tables = {}
 

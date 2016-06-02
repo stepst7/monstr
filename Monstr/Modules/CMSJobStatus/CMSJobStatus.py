@@ -7,7 +7,6 @@ import Monstr.Core.BaseModule as BaseModule
 from datetime import timedelta
 import json
 import pytz
-from pprint import pprint as pp
 
 from Monstr.Core.DB import Column, Integer, String, DateTime, UniqueConstraint
 from sqlalchemy.sql import func
