@@ -5,9 +5,14 @@ services:
   - postgresql
 before_script:
   - cp -f .travis/default.cfg .
+  - pip install python-coveralls
   - pip install pytest pytest-cov
   - psql -c 'create database travis_test;' -U postgres
 # command to install dependencies
-install: "pip install -r requirements.txt"
+install: 
+  - pip install -r requirements.txt
+  - pip install coveralls
 #  # command to run tests
 script: py.test
+
+

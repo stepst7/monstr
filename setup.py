@@ -9,5 +9,7 @@ setup(name='Monstr',
       author_email='gavelock@gmail.com',
       url='https://www.python.org',
       #packages=['Monstr'],
-      packages=find_packages()
+      packages=find_packages(),
+      setup_requires=['pytest-runner'],
+      tests_require=['pytest'],
      )
