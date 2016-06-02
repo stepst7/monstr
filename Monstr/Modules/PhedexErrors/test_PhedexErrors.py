@@ -1,4 +1,4 @@
-from Montsr.Core import Runner
+from Monstr.Core import Runner
 
 modules = Runner.get_modules(i)
 assert 'PhedexErrors' in modules
