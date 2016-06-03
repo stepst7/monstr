@@ -33,8 +33,9 @@ class CMSJobStatus(BaseModule.BaseModule):
     def __init__(self, config=None):
         super(CMSJobStatus, self).__init__()
         self.db_handler = DB.DBHandler()
+        self.config = self.default_config
         if config is not None:
-            self.config = self.default_config
+            self.config.update(config)
 
     def isInteresting(self, site_name):
         if site_name.startswith('T1'):
