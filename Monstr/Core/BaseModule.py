@@ -30,22 +30,12 @@ class BaseModule():
     def __init__(self):
         self.db_handler = DB.DBHandler()
 
-    def checkClass(self):
+    def Initialize(self):
         if self.name is None:
             raise "Module require name"
         if self.table_schemas is None:
             raise "Module require schemas list"
-        self.tables = {}
-
-        for schema in self.table_schemas:
-            table_name = self.name + '_' + schema
-            table = self.db_handler.checkSchema(table_name, self.table_schemas[schema])
-            self.tables[schema] = table
-
-
-
-    def Initialize(self):
-        self.checkClass()
+        self.tables = self.db_handler.initialize(self.table_schemas, self.name)
 
 
     def PrepareRetrieve(self):

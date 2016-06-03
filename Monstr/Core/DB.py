@@ -33,13 +33,6 @@ class DBHandler():
         table.create(checkfirst=True)
         return table
 
-
-    def initialize(self, schemas):
-        pass
-
-    def clear(self, params):
-        pass
-
     def checkSchema(self, name, schema):
         metadata = self.metadata
         table = None
@@ -50,6 +43,17 @@ class DBHandler():
             self.makeTable(name, schema)
             table = Table(name, metadata, autoload=True)
         return table
+
+    def initialize(self, schemas, prefix):
+        tables = {}
+        for schema in schemas:
+            table_name = prefix + '_' + schema
+            table = self.checkSchema(table_name, schemas[schema])
+            tables[schema] = table
+        return tables
+
+    def clear(self, params):
+        pass
 
     def bulk_insert(self, table, insert_list):
         self.engine.execute(table.insert(), insert_list)
