@@ -52,7 +52,7 @@ class CMSJobStatus(BaseModule.BaseModule):
         last_time = None
         last_row = self.db_handler.get_session().query(func.max(self.tables['main'].c.time).label("max_time")).one()
         if last_row[0]:
-            last_time = last_row[0].replace(tzinfo=pytz.utc)
+            last_time = last_row[0].astimezone(pytz.utc) + timedelta(hours=1)
             if current_time - last_row[0] > timedelta(hours=self.config['period']):
                 last_time = current_time - timedelta(hours=self.config['period'])
         else:
@@ -71,7 +71,6 @@ class CMSJobStatus(BaseModule.BaseModule):
             
             json_raw = Utils.get_page(url)
             json_obj = json.loads(json_raw)['summaries']
-
             for obj in json_obj:
                 site_name = str(obj['name'])
                 if self.isInteresting(site_name):
