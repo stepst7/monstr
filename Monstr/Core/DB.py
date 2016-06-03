@@ -33,7 +33,7 @@ class DBHandler():
         table.create(checkfirst=True)
         return table
 
-    def checkSchema(self, name, schema):
+    def getOrCreateTable(self, name, schema):
         metadata = self.metadata
         table = None
         try:
@@ -48,7 +48,7 @@ class DBHandler():
         tables = {}
         for schema in schemas:
             table_name = prefix + '_' + schema
-            table = self.checkSchema(table_name, schemas[schema])
+            table = self.getOrCreateTable(table_name, schemas[schema])
             tables[schema] = table
         return tables
 
