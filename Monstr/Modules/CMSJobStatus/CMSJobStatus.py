@@ -27,10 +27,14 @@ class CMSJobStatus(BaseModule.BaseModule):
                               UniqueConstraint("time", "site_name"),)
                     }
     # tables = None
+    config = {}
+    default_config = {'period': 5}
 
-    def __init__(self):
+    def __init__(self, config=None):
         super(CMSJobStatus, self).__init__()
         self.db_handler = DB.DBHandler()
+        if config is not None:
+            self.config = self.default_config
 
     def isInteresting(self, site_name):
         if site_name.startswith('T1'):
@@ -41,24 +45,20 @@ class CMSJobStatus(BaseModule.BaseModule):
             return True
         return False
 
-    def PrepareRetrieve(self):
+    def Retrieve(self, params):
+        #Get current time and last recorded time
         current_time = Utils.get_UTC_now().replace(minute=0, second=0, microsecond=0)
         last_time = None
         last_row = self.db_handler.get_session().query(func.max(self.tables['main'].c.time).label("max_time")).one()
         if last_row[0]:
             last_time = last_row[0].replace(tzinfo=pytz.utc)
-            if current_time - last_row[0] > timedelta(days=7):
-                last_time = current_time - timedelta(days=7)
+            if current_time - last_row[0] > timedelta(hours=self.config['period']):
+                last_time = current_time - timedelta(hours=self.config['period'])
         else:
-            last_time = current_time - timedelta(days=7)
-        return {'last_time': last_time,
-                'current_time': current_time}
+            last_time = current_time - timedelta(hours=self.config['period'])
 
-    def Retrieve(self, params):
-        last_time = params['last_time']
-        current_time = params['current_time']
+        # Gather all data hour by hour
         insert_list = []
-        
         while last_time < current_time:
             begin = last_time
             end = last_time + timedelta(hours=1)
