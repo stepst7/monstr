@@ -8,7 +8,7 @@ def get_modules():
     for importer, modname, ispkg in pkgutil.iter_modules(Modules.__path__):
         current = importer.find_module(modname).load_module(modname)
         for cur_importer, cur_modname, cur_ispkg in pkgutil.iter_modules(current.__path__):
-            if  modname = cur_modname:
+            if  modname == cur_modname:
                 modules[cur_modname] = import_module('Monstr.Modules.' + modname + '.' + cur_modname)
 
     return modules
