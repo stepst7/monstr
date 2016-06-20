@@ -7,9 +7,8 @@ import Monstr.Core.BaseModule as BaseModule
 from datetime import timedelta
 import json
 
-from Monstr.Core.DB import Table, Column, Integer, String, DateTime, Text, UniqueConstraint
+from Monstr.Core.DB import Column, Integer, String, DateTime, Text, UniqueConstraint
 from sqlalchemy.sql import func
-from sqlalchemy.exc import NoSuchTableError
 
 
 class PhedexErrors(BaseModule.BaseModule):
@@ -88,7 +87,10 @@ class PhedexErrors(BaseModule.BaseModule):
         print total
         count = 0
         for error in retrieved_errors:
-            if not any((error['instance']==elem.instance and error['from_site']==elem.from_site and error['to_site']==elem.to_site and error['time_done']==elem.time_done) for elem in params['avaliable_errors']):
+            if (not any((error['instance']==elem.instance 
+                    and error['from_site']==elem.from_site 
+                    and error['to_site']==elem.to_site 
+                    and error['time_done']==elem.time_done) for elem in params['avaliable_errors'])):
                 insert_list.append(error)
                 count += 1
                 if count % 1000 == 0:
