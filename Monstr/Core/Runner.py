@@ -15,13 +15,11 @@ def get_modules():
 
 def main():
     args = sys.argv
-    print 'Runner manually started'
     if (len(args) < 2):
         sys.exit()
     else:
         target = args[1]
         modules = get_modules()
-        print modules
         if target in modules:
             print 'Test'
             print dir(modules[target])

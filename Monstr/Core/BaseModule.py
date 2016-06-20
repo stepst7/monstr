@@ -51,7 +51,6 @@ class BaseModule():
             self.db_handler.bulk_insert(table, data[schema])        
 
     def ExecuteCheck(self):
-        print 'ExecuteCheck'
         self.Initialize()
         params = self.PrepareRetrieve()
         data = self.Retrieve(params)
