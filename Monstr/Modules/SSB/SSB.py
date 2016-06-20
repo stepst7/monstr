@@ -7,7 +7,7 @@ import Monstr.Core.BaseModule as BaseModule
 from datetime import datetime
 import json
 
-from Monstr.Core.DB import Column, Integer, String, DateTime, Text
+from Monstr.Core.DB import Column, Integer, String, Text
 
 class SSB(BaseModule.BaseModule):
     name = 'SSB'    
