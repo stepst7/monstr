@@ -56,7 +56,8 @@ class DBHandler():
         pass
 
     def bulk_insert(self, table, insert_list):
-        self.engine.execute(table.insert(), insert_list)
+        if len(insert_list) > 0:
+            self.engine.execute(table.insert(), insert_list)
 
     def get_new_metadata(self):
         return MetaData(self.engine)
