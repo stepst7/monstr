@@ -46,7 +46,7 @@ class DBHandler():
             for column in schema:
                 oldSchema.append(str(column))  
 
-            if table.columns.keys() == foo:
+            if table.columns.keys() == oldSchema:
                 print 'Table exist'
             else:
                 table.drop(self.engine, checkfirst=True)
