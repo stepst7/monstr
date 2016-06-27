@@ -89,6 +89,25 @@ class CMSJobStatus(BaseModule.BaseModule):
             last_time = last_time + timedelta(hours=1)
         return {'main': insert_list}
 
+    #==========================================================================
+    #                 Web
+    #==========================================================================    
+
+    def lastStatus(self, delta=8):
+        result = []
+        max_time = self.db_handler.get_session().query(func.max(self.tables['main'].c.time).label("max_time")).one()
+        if max_time[0]:
+            max_time = max_time[0]
+            query = self.tables['main'].select(self.tables['main'].c.time > max_time - timedelta(hours=delta))
+            cursor = query.execute()
+            resultProxy = cursor.fetchall()
+            for row in resultProxy:
+                result.append(dict(row.items()))
+
+        return result
+
+    rest_links = {'lastStatus': lastStatus}
+
 def InsertToDB():
     X = CMSJobStatus()
     X.ExecuteCheck()

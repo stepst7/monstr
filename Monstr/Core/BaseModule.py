@@ -27,6 +27,8 @@ class BaseModule():
     tables = None
     db_handler = None
 
+    rest_links = {}
+
     def __init__(self):
         self.db_handler = DB.DBHandler()
 
