@@ -20,9 +20,9 @@ class DBHandler():
     session = None
 
     def __init__(self):
-        self.init()
+        self.initDB()
 
-    def init(self):
+    def initDB(self):
         db_conf = Config.get_section('Database')
         user, password, host, name = db_conf['user'], db_conf['password'], db_conf['host'], db_conf['name']
         connection_string = 'postgresql://' + user + ':' + password + '@' + host + '/' + name
@@ -39,19 +39,19 @@ class DBHandler():
     def getOrCreateTable(self, name, schema):
         metadata = self.metadata
         table = None
-        foo = []
+        oldSchema = []
         try:
             table = Table(name, metadata, autoload=True)            
             
-            for x in schema:
-                foo.append(str(x))  
+            for column in schema:
+                oldSchema.append(str(column))  
 
             if table.columns.keys() == foo:
                 print 'Table exist'
             else:
                 table.drop(self.engine, checkfirst=True)
                 print 'Old table has been dropped'                
-                self.init()
+                self.initDB()
                 table = self.makeTable(name, schema)
                 print 'New table has been created'
                 
