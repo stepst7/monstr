@@ -8,7 +8,7 @@ from datetime import timedelta
 import json
 import pytz
 
-from Monstr.Core.DB import Column, Integer, String, DateTime, UniqueConstraint
+from Monstr.Core.DB import Column, Integer, String, DateTime, BigInteger, UniqueConstraint
 from sqlalchemy.sql import func
 
 class PhedexQuality(BaseModule.BaseModule):
@@ -31,15 +31,15 @@ class PhedexQuality(BaseModule.BaseModule):
                               Column('instance', String(10)),
                               Column('time', DateTime(True)),
                               Column('site', String(60)),
-                              Column('rate', String(60)),
-                              Column('quality', String(60)),
-                              Column('done_files', String(60)),
-                              Column('done_bytes', String(60)),
-                              Column('try_bytes', String(60)),
-                              Column('fail_files', String(60)),
-                              Column('fail_bytes', String(60)),
-                              Column('expire_files', String(60)),
-                              Column('expire_bytes', String(60)),)
+                              Column('rate', Integer),
+                              Column('quality', String(10)),
+                              Column('done_files', Integer),
+                              Column('done_bytes', BigInteger),
+                              Column('try_bytes', BigInteger),
+                              Column('fail_files', Integer),
+                              Column('fail_bytes', BigInteger),
+                              Column('expire_files', Integer),
+                              Column('expire_bytes', BigInteger),)
                     }
 
     HOSTNAME = "http://cmsweb.cern.ch"
