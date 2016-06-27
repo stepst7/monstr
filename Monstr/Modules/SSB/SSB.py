@@ -23,12 +23,12 @@ class SSB(BaseModule.BaseModule):
                               Column('good_links', String(20)),
                               Column('commissioned_links', String(20)),
                               Column('analysis', String(20)),
-                              Column('running', String(20)),
-                              Column('pending', String(20)),
-                              Column('in_rate_phedex', String(20)),
-                              Column('out_rate_phedex', String(20)),
+                              Column('running', Integer),
+                              Column('pending', Integer),
+                              Column('in_rate_phedex', Integer),
+                              Column('out_rate_phedex', Integer),
                               Column('topologymaintenances', Text),
-                              Column('ggus', String(20)),)
+                              Column('ggus', Integer),)
                     }
 
     DATA_HOSTNAME = "http://dashb-ssb.cern.ch/dashboard/request.py/siteviewjson?view=default"
@@ -58,7 +58,7 @@ class SSB(BaseModule.BaseModule):
             if site_name in result:
                 for index in column_names:
                     value = str(data[index].split('|')[2])
-                    result[site_name][column_names[index]] = value if value != '' else 'n/a'
+                    result[site_name][column_names[index]] = value if value != '' else None
                 result[site_name]['time'] = retrieve_time
                 result[site_name]['site_name'] = str(site_name)
 
