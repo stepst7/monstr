@@ -68,8 +68,6 @@ class PhedexQuality(BaseModule.BaseModule):
 
         # Gather all data hour by hour
         while last_time < current_time:
-            begin = last_time
-            end = last_time + timedelta(hours=1)
 
             for instance in self.REQUESTS:
                 quality_json = Utils.get_page(self.HOSTNAME + self.REQUESTS[instance])
