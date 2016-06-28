@@ -2,6 +2,7 @@ from sqlalchemy import Table, Column, Integer, String, BigInteger, DateTime, Enu
 from sqlalchemy import create_engine
 from sqlalchemy.exc import NoSuchTableError
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import inspect
 
 import Monstr.Core.Config as Config
 
@@ -32,32 +33,26 @@ class DBHandler():
         self.metadata = MetaData(self.engine)
 
     def makeTable(self, name, schema):
-        table = Table(name, self.metadata, *schema)
+        table = Table(name, self.metadata, *schema, extend_existing=True)
         table.create(checkfirst=True)
         return table
 
     def getOrCreateTable(self, name, schema):
-        metadata = self.metadata
-        table = None
-        oldSchema = []
-        try:
-            table = Table(name, metadata, autoload=True)            
-            
-            for column in schema:
-                oldSchema.append(str(column))  
+        iengine = inspect(self.engine)
+        db_tables = iengine.get_table_names()
 
-            if table.columns.keys() == oldSchema:
-                print 'Table exist'
-            else:
-                table.drop(self.engine, checkfirst=True)
-                print 'Old table has been dropped'                
-                self.initDB()
-                table = self.makeTable(name, schema)
-                print 'New table has been created'
-                
-        except NoSuchTableError:
+        if name not in db_tables:
             self.makeTable(name, schema)
-            table = Table(name, metadata, autoload=True)
+        table = Table(name, self.metadata, autoload=True)
+        db_columns = iengine.get_columns(name)
+        db_column_names = [c["name"] for c in iengine.get_columns(name)]
+        model_column_names = [c.name for c in schema if c.name!=None]
+        if set(model_column_names) != set(db_column_names):
+            print 'do not correspond'
+            self.session.close()
+            table.drop()
+            table = self.makeTable(name, schema)
+
         return table
 
     def initialize(self, schemas, prefix):
