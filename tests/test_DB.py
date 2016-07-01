@@ -6,18 +6,18 @@ schema1 = (Column('id', Integer, primary_key=True),
                               Column('time', DateTime(True)),
                               Column('user_name', String(30)),
                               Column('password', String(30)),
-                              UniqueConstraint("site_name"),)
+                              UniqueConstraint("user_name"),)
 
 schema2 = (Column('id', Integer, primary_key=True),
                               Column('user_name', String(30)),
                               Column('password', String(30)),
-                              UniqueConstraint("site_name"),)
+                              UniqueConstraint("user_name"),)
 
 schema3 = (Column('id', Integer, primary_key=True),
                               Column('date', DateTime(True)),
                               Column('user_name', String(30)),
                               Column('password', String(30)),
-                              UniqueConstraint("site_name"),)
+                              UniqueConstraint("user_name"),)
 
 db_handler = DB.DBHandler()
 
