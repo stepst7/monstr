@@ -8,25 +8,11 @@ from datetime import timedelta
 import json
 import pytz
 
-from Monstr.Core.DB import Column, Integer, String, DateTime, BigInteger, UniqueConstraint
+from Monstr.Core.DB import Column, Integer, String, DateTime, BigInteger
 from sqlalchemy.sql import func
 
 class PhedexQuality(BaseModule.BaseModule):
     name = 'PhedexQuality'
-    """table_schemas = {'main': (Column('id', Integer, primary_key=True),
-                              Column('instance', String(10)),
-                              Column('time', DateTime(True)),
-                              Column('site', String(60)),
-                              Column('rate', Integer),
-                              Column('quality', String(60)),
-                              Column('done_files', Integer),
-                              Column('done_bytes', Integer),
-                              Column('try_bytes', Integer),
-                              Column('fail_files', Integer),
-                              Column('fail_bytes', Integer),
-                              Column('expire_files', Integer),
-                              Column('expire_bytes', Integer),)
-                    }"""
     table_schemas = {'main': (Column('id', Integer, primary_key=True),
                               Column('instance', String(10)),
                               Column('time', DateTime(True)),
@@ -82,13 +68,6 @@ class PhedexQuality(BaseModule.BaseModule):
 
         # Gather all data hour by hour
         while last_time < current_time:
-            begin = last_time
-            end = last_time + timedelta(hours=1)
-            time1 = '+' + str(begin.hour) + "%3A00"
-            time2 = '+' + str(end.hour) + "%3A00"
-            date1 = str(begin).split(' ')[0] + time1
-            date2 = str(end).split(' ')[0] + time2
-
 
             for instance in self.REQUESTS:
                 quality_json = Utils.get_page(self.HOSTNAME + self.REQUESTS[instance])
@@ -112,11 +91,8 @@ class PhedexQuality(BaseModule.BaseModule):
                                        'expire_files':int(quality[site][time]['expire_files']),
                                        'expire_bytes':int(quality[site][time]['expire_bytes']),
                                        })
-            #from pprint import pprint as pp
-            #pp({'main': result})
 
             last_time = last_time + timedelta(hours=1)
-
 
         return {'main': result}
 
