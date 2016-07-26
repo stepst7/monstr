@@ -4,7 +4,7 @@ python:
 services: 
   - postgresql
 before_script:
-  - cp -f .travis/default.cfg /opt/monstr/current.cfg
+  - mkdir /opt/monstr && cp -f .travis/default.cfg /opt/monstr/current.cfg
   - pip install pytest pytest-cov python-coveralls mock coveralls
   - pip install -r requirements.txt
   - psql -c 'create database travis_test;' -U postgres
