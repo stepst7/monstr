@@ -3,7 +3,7 @@ Config = ConfigParser.ConfigParser()
 
 import os
 print os.getcwd()
-Config.read('default.cfg')
+Config.read('/opt/monstr/current.cfg')
 
 def get_section(section):
     result = {}
