@@ -7,7 +7,7 @@ try:
     Config.read('/opt/monstr/current.cfg')
 except Exception as e:
     print 'WARNING! Configuration is missing. Using test_conf.cfg'
-    Config.read('test_conf.cfg')    
+    Config.read('test.cfg')    
 
 def get_section(section):
     result = {}
