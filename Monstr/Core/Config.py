@@ -1,11 +1,14 @@
 import ConfigParser
-Config = ConfigParser.ConfigParser()
-
 import os
+
+CONFIG_PATH = '/opt/monstr/current.cfg'
+
+
+Config = ConfigParser.ConfigParser()
 print os.getcwd()
-try:
-    Config.read('/opt/monstr/current.cfg')
-except Exception as e:
+if os.path.isfile(CONFIG_PATH):
+    Config.read(CONFIG_PATH)
+else:
     print 'WARNING! Configuration is missing. Using test_conf.cfg'
     Config.read('test.cfg')    
 
