@@ -17,4 +17,4 @@ def get_section(section):
             result[option] = Config.get(section, option)
         return result
     else:
-        raise 'Requested section is absent in configuration'
+        raise Exception('Requested section is absent in configuration')
