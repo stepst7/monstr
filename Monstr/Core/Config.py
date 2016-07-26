@@ -3,7 +3,11 @@ Config = ConfigParser.ConfigParser()
 
 import os
 print os.getcwd()
-Config.read('/opt/monstr/current.cfg')
+try:
+    Config.read('/opt/monstr/current.cfg')
+except Exception as e:
+    print 'WARNING! Configuration is missing. Using test_conf.cfg'
+    Config.read('test_conf.cfg')    
 
 def get_section(section):
     result = {}
