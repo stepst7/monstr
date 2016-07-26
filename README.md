@@ -23,3 +23,8 @@ $ pip install -e . # Install setup.py in development mode
 ...
 
 $ deactivate
+
+Requirements
+------------
+
+gcc, python-devel, postgresql-devel
