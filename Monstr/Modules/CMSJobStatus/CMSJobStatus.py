@@ -108,9 +108,6 @@ class CMSJobStatus(BaseModule.BaseModule):
 
     rest_links = {'lastStatus': lastStatus}
 
-def InsertToDB():
+if __name__=='__main__':
     X = CMSJobStatus()
     X.ExecuteCheck()
-
-if __name__=='__main__':
-    InsertToDB()

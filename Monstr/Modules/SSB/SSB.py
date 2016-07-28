@@ -68,9 +68,6 @@ class SSB(BaseModule.BaseModule):
 
         return {'main': insert_list}
 
-def InsertToDB():
+if __name__=='__main__':
     X = SSB()
     X.ExecuteCheck()
-
-if __name__=='__main__':
-    InsertToDB()

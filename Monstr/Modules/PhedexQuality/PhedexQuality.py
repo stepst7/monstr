@@ -96,9 +96,6 @@ class PhedexQuality(BaseModule.BaseModule):
 
         return {'main': result}
 
-def InsertToDB():
+if __name__ == '__main__':
     X = PhedexQuality()
     X.ExecuteCheck()
-
-if __name__ == '__main__':
-    InsertToDB()
