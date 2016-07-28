@@ -96,6 +96,9 @@ class PhedexQuality(BaseModule.BaseModule):
 
         return {'main': result}
 
-if __name__ == '__main__':
+def main():
     X = PhedexQuality()
     X.ExecuteCheck()
+
+if __name__ == '__main__':
+    main()

@@ -7,8 +7,8 @@ def test_CMSJobStatus_beforeLastHour():
 
     with mock.patch("Monstr.Modules.CMSJobStatus.CMSJobStatus.Utils.get_UTC_now") as MockClass:
         MockClass.return_value = datetime.datetime.utcnow().replace(tzinfo=pytz.utc) - datetime.timedelta(hours=1)
-        testedModule.InsertToDB()
+        testedModule.main()
 
 def test_CMSJobStatus_addLastHour():
     import Monstr.Modules.CMSJobStatus.CMSJobStatus as testedModule
-    testedModule.InsertToDB()
+    testedModule.main()

@@ -108,6 +108,9 @@ class CMSJobStatus(BaseModule.BaseModule):
 
     rest_links = {'lastStatus': lastStatus}
 
-if __name__=='__main__':
+def main():
     X = CMSJobStatus()
     X.ExecuteCheck()
+
+if __name__=='__main__':
+    main()
