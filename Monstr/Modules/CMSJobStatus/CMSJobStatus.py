@@ -93,12 +93,16 @@ class CMSJobStatus(BaseModule.BaseModule):
     #                 Web
     #==========================================================================    
 
-    def lastStatus(self, delta=8):
+    def lastStatus(self, params):
+        default_params = {'delta': 8}
+        for key in default_params:
+            if key not in params:
+                params[key] = default_params[key]
         result = []
         max_time = self.db_handler.get_session().query(func.max(self.tables['main'].c.time).label("max_time")).one()
         if max_time[0]:
             max_time = max_time[0]
-            query = self.tables['main'].select(self.tables['main'].c.time > max_time - timedelta(hours=delta))
+            query = self.tables['main'].select(self.tables['main'].c.time > max_time - timedelta(hours=params['delta']))
             cursor = query.execute()
             resultProxy = cursor.fetchall()
             for row in resultProxy:
