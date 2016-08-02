@@ -12,3 +12,9 @@ def test_CMSJobStatus_beforeLastHour():
 def test_CMSJobStatus_addLastHour():
     import Monstr.Modules.CMSJobStatus.CMSJobStatus as testedModule
     testedModule.main()
+
+def test_RESTs():
+    from Monstr.Modules.CMSJobStatus.CMSJobStatus import CMSJobStatus
+    obj = CMSJobStatus()
+    for rest_name in obj.rest_links:
+        obj.rest_links[rest_name](obj, {})

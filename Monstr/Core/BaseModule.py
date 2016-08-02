@@ -44,6 +44,15 @@ class BaseModule():
         }
         return row
 
+    def _create_params(self, default_params, params):
+        result = {}
+        for key in default_params:
+            if key not in params:
+                result[key] = default_params[key]
+            else:
+                result[key] = type(default_params[key])(params[key])
+        return result
+
 
     rest_links = {}
 
