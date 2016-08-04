@@ -107,17 +107,17 @@ class CMSJobStatus(BaseModule.BaseModule):
                 resultProxy = cursor.fetchall()
                 for row in resultProxy:
                     result.append(dict(row.items()))
-            response = {'result': result, 
+            response = {'data': result, 
                         'applied_params': params,
                         'success': True}
         except Exception as e:
-            response = {'result': result, 
+            response = {'data': result, 
                         'incoming_params': incoming_params,
                         'default_params': [[key, default_params[key], type(default_params[key]) ] for key in default_params],
                         'success': False,
                         'error': type(e).__name__ + ': ' + e.message}
 
-        return {'result': result, 'applied_params': params}
+        return response
 
     rest_links = {'lastStatus': lastStatus}
 
