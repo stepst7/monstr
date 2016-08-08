@@ -7,12 +7,12 @@ import Monstr.Core.BaseModule as BaseModule
 from datetime import datetime
 import json
 
-from Monstr.Core.DB import Column, Integer, String, Text
+from Monstr.Core.DB import Column, Integer, String, Text, DateTime
 
 class SSB(BaseModule.BaseModule):
     name = 'SSB'    
     table_schemas = {'main': (Column('id', Integer, primary_key=True),
-                              Column('time', Text),
+                              Column('time', DateTime(True)),
                               Column('site_name', String(20)),
                               Column('visible', String(20)),
                               Column('active_t2s', String(20)),
@@ -39,7 +39,7 @@ class SSB(BaseModule.BaseModule):
         self.db_handler = DB.DBHandler()
 
     def Retrieve(self, params):
-        retrieve_time = str(datetime.now())
+        retrieve_time = Utils.get_UTC_now().replace(minute=0, second=0, microsecond=0)
         result = {'T1_RU_JINR': {}, 'T1_RU_JINR_Buffer': {}, 'T1_RU_JINR_Disk': {}}
         
         column_names = {}
