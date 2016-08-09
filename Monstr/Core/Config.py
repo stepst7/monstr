@@ -1,9 +1,16 @@
 import ConfigParser
-Config = ConfigParser.ConfigParser()
-
 import os
+
+CONFIG_PATH = '/opt/monstr/current.cfg'
+
+
+Config = ConfigParser.ConfigParser()
 print os.getcwd()
-Config.read('default.cfg')
+if os.path.isfile(CONFIG_PATH):
+    Config.read(CONFIG_PATH)
+else:
+    print 'WARNING! Configuration is missing. Using test_conf.cfg'
+    Config.read('test.cfg')    
 
 def get_section(section):
     result = {}
@@ -13,4 +20,4 @@ def get_section(section):
             result[option] = Config.get(section, option)
         return result
     else:
-        raise 'Requested section is absent in configuration'
+        raise Exception('Requested section is absent in configuration')

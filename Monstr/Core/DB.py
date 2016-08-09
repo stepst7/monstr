@@ -70,6 +70,9 @@ class DBHandler():
         if len(insert_list) > 0:
             self.engine.execute(table.insert(), insert_list)
 
+    def insert(self, table, row):
+        self.engine.execute(table.insert(), (row,))
+
     def get_new_metadata(self):
         return MetaData(self.engine)
 

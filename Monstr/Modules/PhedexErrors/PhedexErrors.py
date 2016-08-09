@@ -97,9 +97,9 @@ class PhedexErrors(BaseModule.BaseModule):
                     print count, ' of ', total, ' done'
         return {'main': insert_list}
 
-def InsertToDB():
+def main():
     X = PhedexErrors()
     X.ExecuteCheck()
-
+    
 if __name__=='__main__':
-    InsertToDB()
+    main()
