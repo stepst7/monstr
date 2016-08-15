@@ -68,6 +68,46 @@ class SSB(BaseModule.BaseModule):
 
         return {'main': insert_list}
 
+    #==========================================================================
+    #                 Web
+    #==========================================================================    
+
+    def lastStatus(self, incoming_params):
+        response = {}
+        try:
+            default_params = {'site_name': ''}
+            params = self._create_params(default_params, incoming_params)
+            result = []
+
+            if params['site_name'] == '': 
+                query = self.tables['main'].select()         
+            # site_name=T1_RU_JINR|T1_RU_JINR_Disk
+            elif len(params['site_name'].split('|')) == 2: 
+                foo = params['site_name'].split('|')
+                query = self.tables['main'].select((self.tables['main'].c.site_name == foo[0]) | (self.tables['main'].c.site_name == foo[1]))
+            else:
+                query = self.tables['main'].select(self.tables['main'].c.site_name == params['site_name'])
+
+            cursor = query.execute()
+            resultProxy = cursor.fetchall()
+            for row in resultProxy:
+                result.append(dict(row.items()))
+
+            response = {'data': result, 
+                        'applied_params': params,
+                        'success': True}
+        except Exception as e:
+            response = {'data': result, 
+                        'incoming_params': incoming_params,
+                        'default_params': [[key, default_params[key], type(default_params[key]) ] for key in default_params],
+                        'success': False,
+                        'error': type(e).__name__ + ': ' + e.message}
+
+        return response
+
+    rest_links = {'lastStatus': lastStatus}
+
+
 def main():
     X = SSB()
     X.ExecuteCheck()
